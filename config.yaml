@@ -1,0 +1,111 @@
+# ============================================================
+# Universal Forgery Detection — Configuration
+# ============================================================
+
+# ELA Multi-Level Analysis
+ela:
+  quality_levels: [60, 70, 75, 80, 85, 90, 95]
+  scale_factor: 15
+  region_threshold: 60
+  consensus_min_levels: 3
+  min_contour_area: 200
+
+# Noise Analysis
+noise:
+  wavelet_levels: 4
+  wavelet_name: "db4"
+  block_size: 64
+  outlier_z_threshold: 2.0
+  min_blocks: 8
+  prnu_window_size: 128
+  prnu_step: 64
+
+# AI Generation Detection
+ai_detection:
+  dct_ai_freq_ratio_threshold: 0.15
+  glcm_homogeneity_threshold: 0.7
+  glcm_contrast_threshold: 5.0
+  ghost_monotonic_variance_threshold: 1.0
+
+# Copy-Paste / Clone Detection
+copy_paste:
+  keypoint_method: "sift"  # "sift" or "orb"
+  max_keypoints: 5000
+  match_ratio_threshold: 0.75
+  min_cluster_size: 8
+  cluster_eps: 30
+  block_size: 16
+  block_overlap: 8
+  block_dct_match_threshold: 0.95
+
+# Splicing Detection
+splicing:
+  block_size: 64
+  color_temp_z_threshold: 2.5
+  edge_gradient_threshold: 100
+  noise_mismatch_threshold: 2.0
+
+# JPEG Quantization Analysis
+jpeg_quantization:
+  test_qualities: [50, 55, 60, 65, 70, 75, 80, 85, 90, 95]
+  ghost_block_size: 8
+
+# Metadata / EXIF
+metadata:
+  suspicious_software:
+    - "photoshop"
+    - "gimp"
+    - "illustrator"
+    - "affinity"
+    - "pixelmator"
+    - "paint.net"
+
+# Font Consistency
+font:
+  min_text_regions: 5
+  stroke_outlier_z: 2.5
+  edge_hist_threshold: 0.5
+  ssim_outlier_z: 2.0
+  text_density_threshold: 0.02  # min text area ratio to classify as document
+
+# Thumbnail Consistency
+thumbnail:
+  ssim_mismatch_threshold: 0.9
+  pixel_diff_threshold: 15
+
+# Text Overlay Detection
+text_overlay:
+  noise_ratio_threshold: 2.0
+  min_text_height: 10
+  edge_sharpness_threshold: 50
+
+# Check Weights (for overall score)
+weights:
+  ela: 15
+  noise: 10
+  ai_detect: 12
+  copy_paste: 15
+  splicing: 12
+  jpeg_quant: 8
+  metadata: 5
+  font_check: 8
+  thumbnail: 5
+  text_overlay: 10
+
+# GUI Settings
+gui:
+  default_mode: "simple"  # "simple" or "advanced"
+  theme: "dark"
+  max_image_dimension: 4096
+  window_width: 1400
+  window_height: 900
+
+# Storage
+storage:
+  data_dir: "data"           # Rendered page images
+  evidence_dir: "evidence"   # Check evidence outputs
+
+# Export
+export:
+  output_dir: "reports"
+  include_raw_evidence: false  # Include raw evidence dict in PDF
